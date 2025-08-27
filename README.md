@@ -11,5 +11,5 @@
 <br>
 
 <h3 align="center">Screenshots</h3>
-![screenshot](https://github.com/sarkans404/dots-hyprland/screenshots/1.png)
-![screenshot](https://github.com/sarkans404/dots-hyprland/screenshots/2.png)
+![screenshot](/1.png)
+![screenshot](/2.png)
