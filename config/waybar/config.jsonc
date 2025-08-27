@@ -1,4 +1,5 @@
 // ~/.config/waybar/config.jsonc
+
 {
   "height": 35,
   "layer": "top",
@@ -242,5 +243,9 @@
     "on-click": "swaync-client -t -sw",
     "escape": true
   },
+
+
+
 }
+
 
