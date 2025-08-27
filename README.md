@@ -1,7 +1,5 @@
-# Hyprland dotfiles
-<h2 align="center" >Hyprland dotfiles</h2>
+<h1 align="center" >Hyprland dotfiles</h1>
 <p align="center" >my first attempt to set up Hyprland...</p>
-
 <br>
 
 <p align="center">⚠️unfinished and never will be⚠️</p>
