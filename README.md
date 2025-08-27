@@ -11,5 +11,5 @@
 <br>
 
 <h3 align="center">Screenshots</h3>
-![screenshot](/1.png)
-![screenshot](/2.png)
+<img src="1.png">
+<img src="2.png">
