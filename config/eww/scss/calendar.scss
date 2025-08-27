@@ -1,0 +1,17 @@
+//  ---------------------------------------------------------------------------
+//                                Calendar Window
+//  ---------------------------------------------------------------------------
+calendar {
+  border-radius: 6px;
+  font-size: 18px;
+  &:selected {
+    background-color: $background3;
+  }
+  &.button {
+    background-color: transparent;
+    margin-top: 20px;
+  }
+  &:indeterminate {
+    color: $foreground2;
+  }
+}

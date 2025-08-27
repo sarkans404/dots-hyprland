@@ -1,0 +1,64 @@
+.wallpapers {
+  .button {
+    background-color: $color1;
+    border-radius: 5px;
+    min-height: 30px;
+    border: $border;
+    border-color: transparent;
+
+    &:hover {
+      background-color: $color4;
+      border: $border;
+      border-color: $yellow;
+    }
+  }
+  .imgContainer {
+    border: $border;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .img {
+    min-height: 50px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .imgBtn:hover {
+    .imgContainer {
+      border-color: $yellow;
+    }
+    .img {
+      background-size: 120%;
+    }
+  }
+  .btnLeft {
+    border-radius: 6px 0 0 6px;
+    background-color: $background3;
+
+    &:hover {
+      background-color: $color4;
+    }
+  }
+  .btnRight {
+    border-radius: 0 6px 6px 0;
+    background-color: $background3;
+
+    &:hover {
+      background-color: $color4;
+    }
+  }
+  .wallLbl {
+    font-size: 24px;
+  }
+  .checkbox {
+    background-color: $background2;
+    border-radius: 6px;
+    .checkTxt {
+      font-size: 20px;
+      padding-right: 10px;
+    }
+    &:hover {
+      background-color: $color4;
+    }
+  }
+}

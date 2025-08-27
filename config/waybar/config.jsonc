@@ -1,0 +1,246 @@
+// ~/.config/waybar/config.jsonc
+{
+  "height": 35,
+  "layer": "top",
+  "position": "top",
+  "output": ["eDP-1", "HDMI-A-1"],
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "custom/window",
+    "group/expand"
+  ],
+  "modules-center": ["custom/clock"],
+  "modules-right": [
+    // "custom/player",
+    "mpris",
+    "group/tray",
+    "hyprland/language",
+    "pulseaudio",
+    "bluetooth",
+    "backlight",
+    "battery",
+    "network",
+    "custom/notification"
+    // "custom/pacman",
+  ],
+  "hyprland/language": {
+    "format": " {}",
+    "format-en": "en",
+    "format-ru": "ru",
+    "format-ro": "ro",
+    "on-click": "~/.config/waybar/scripts/keyboard-toggle.sh"
+  },
+
+  "group/expand": {
+    "orientation": "horizontal",
+    "spacing": 10,
+    "drawer": {
+      "transition-duration": 600,
+      "transition-to-left": true,
+      "click-to-reveal": true
+    },
+    "modules": [
+      "custom/expand",
+      "custom/colorpicker",
+      "custom/wallpaper",
+      "cpu",
+      "memory",
+      "temperature",
+      "custom/pacman"
+    ],
+  },
+  "custom/expand": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/pacman": {
+    "format": "󰅢 {}",
+    "interval": 30,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+    "signal": 8,
+    "tooltip": false
+  },
+  "custom/wallpaper": {
+    "format": "󰃞",
+    "on-click": "hyprshot -m region -o $HOME/Pictures/Screenshots/"
+  },
+  "custom/colorpicker": {
+    "format": "❋",
+    // "return-type": "json",
+    // "interval": "once",
+    "on-click": "hyprpicker -a"
+    // "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+    // "on-click": "~/.config/waybar/scripts/colorpicker.sh",
+    // "signal": 1
+  },
+  "cpu": {
+    "format": "󰻠 {}%",
+    "tooltip": true
+  },
+  "memory": {
+    "size": 8,
+    "format": " {}%"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "size": 8,
+    "format": " {}C"
+  },
+
+  "custom/launcher": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "flatpak run io.missioncenter.MissionCenter",
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+      "empty": ""
+    },
+    "persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5, 6]
+    }
+  },
+  "custom/window": {
+    "exec": "~/.config/waybar/scripts/active-app.sh",
+    "on-click": "rofi -show drun",
+    "interval": 1,
+    "format": "{}",
+    "max-length": 20
+  },
+  "custom/clock": {
+    "format": "{}",
+    "exec": "date '+\uf133 %a, %b %d   \uf017 %H:%M:%S'",
+    "on-click": "~/.config/eww/scripts/open_calendar.sh",
+    "interval": 1
+  },
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "max-length": 35,
+    "player-icons": {
+      "default": "󰎆 ",
+      "cmus": " ",
+      "mpv": "🎵",
+      "vlc": "🎬",
+      "spotify": " "
+    },
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+  //   "custom/player": {
+  //   "format": "󰌳 {}",
+  //   "max-length": 50,
+  //   "exec-on-event": "on-click",
+  //   "interval": 1,
+  //   "return-type": "json",
+  //   "on-click": "playerctl play-pause",
+  //   "on-scroll-down": "playerctl previous",
+  //   "on-scroll-up": "playerctl next",
+  //   "tooltip": true,
+  //   "escape": true,
+  // },
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " Muted",
+    "on-click": "pamixer -t",
+    "on-right-click": "pavucontrol",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": ["", "", ""]
+    },
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ],
+    "scroll-step": 1,
+  },
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "tooltip-format-disconnected": "Error",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} 🖧 ",
+    "on-click": "kitty nmtui"
+  },
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "BT-off",
+    "format-disabled": "󰂲",
+    "format-connected-battery": "{device_battery_percentage}% 󰂯",
+    "format-alt": "{device_alias} 󰂯",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+    "on-click-right": "blueman-manager"
+  },
+  "battery": {
+    "interval": 30,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "on-click-right": "~/.config/eww/scripts/open_control_center.sh",
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰂄",
+    "format-plugged": "{capacity}% 󰂄 ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"]
+  },
+  "group/tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "transition-left-to-right": false,
+      "click-to-reveal": false,
+    },
+    "modules": ["custom/traybutton", "tray"]
+  },
+
+  "tray": {
+    "icon-size": 21,
+    "spacing": 10
+  },
+  "custom/traybutton": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "",
+    "on-click": "swaync-client -t -sw",
+    "escape": true
+  },
+}
+

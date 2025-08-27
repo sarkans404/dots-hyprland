@@ -1,0 +1,131 @@
+/* ~/.config/waybar/style.css */
+@define-color bgc rgba(0, 0, 0, 0.5);
+@define-color fontColor #fff;
+
+* {
+    all: unset;
+  font-family: "Iosevka Nerd Font", monospace;
+  font-size: 14px;
+  border: none;
+  border-radius: 12px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @fontColor;
+}
+
+#workspaces{
+    border: 1.2px solid #fff;
+    background-color: @bgc;
+    padding: 0 8px;
+    margin: 6px 4px 0px 4px;
+
+}
+#workspaces button {
+    all:unset;
+    padding: 0px 5px;
+    color: alpha(rgb(255, 255, 255),.4);
+    transition: all .2s ease;
+}
+#workspaces button:hover {
+    color:rgb(255, 255, 255);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+#workspaces button.active {
+    color: rgb(255, 255, 255);
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
+#workspaces button.empty {
+    color: rgba(170, 170, 170, 0.267);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
+}
+#workspaces button.empty:hover {
+    color: rgba(209, 209, 209, 0.541);
+    border: none;
+    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
+    transition: all 1s ease;
+}
+#workspaces button.empty.active {
+    color: rgba(209, 209, 209, 0.541);
+    border: none;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+}
+
+#custom-clock, #mpris, #group-expand, #custom-wallpaper, #custom-colorpicker, #custom-expand, #cpu, #memory, #temperature, #custom-pacman, #custom-notification, #battery, #language, #custom-window, #network, #pulseaudio, #backlight, #bluetooth, #tray, #custom-media, #custom-launcher {
+    padding: 0 10px;
+    border: 1.2px solid #fff;
+    margin: 0 4px;
+    background-color: @bgc;
+    margin: 6px 4px 0px 4px;
+    
+}
+#mpris{
+    background-color: rgba(48, 166, 196, 0.521);
+    color: black;
+}
+#tray *{
+    padding: 0;
+    border: 0;
+    margin: 0;
+    background-color: transparent;
+}
+#custom-launcher{
+    padding: 2px 5px;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+#custom-clock:hover, #group-expand, #custom-notification:hover,#bluetooth:hover,#network:hover,#battery:hover, #pulseaudio:hover, #backlight:hover{
+    transition: all .3s ease;
+    color:rgba(185, 185, 185, 0.8);
+}
+
+#battery.charging {
+    color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffbe61;
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#group-expand{
+    padding: 0px 5px;
+    transition: all .3s ease; 
+}
+#custom-expand, #custom-colorpicker, #custom-wallpaper, #cpu, #memory, #temperature, #custom-pacman{
+    font-size: 14px;
+    margin: 6px 2px 0px 2px;
+    padding: 0px 10px;
+}
+#custom-expand{
+    background-color: rgba(0, 0, 0, 0.5);
+    color:alpha(rgb(255, 255, 255),.8);
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.7);
+    transition: all .3s ease; 
+    padding: 0px 7px;
+}
+#custom-expand:hover{
+    color:rgba(255,255,255,.2);
+    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
+}
+#cpu,#memory,#temperature{
+    transition: all .3s ease; 
+    color:rgb(255, 255, 255);
+}
+#custom-colorpicker, #custom-wallpaper{
+    padding: 0px 6px;
+}

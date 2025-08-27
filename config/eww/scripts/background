@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# @requires: imagemagick pywal
+
+source $HOME/.config/eww/var.conf
+cache_folder="/tmp/eww/thumbnails"
+
+create_thumbnails(){
+    if [ ! -d "$cache_folder" ]; then
+        mkdir -p "$cache_folder"
+    fi
+    local valid_extensions=("jpg" "jpeg" "png")
+    for file in $SET_BG/*; do
+        extension="${file##*.}"
+        extension_lc="${extension,,}"
+    if [[ " ${valid_extensions[@]} " =~ " $extension_lc " ]]; then
+            destination="$cache_folder/$(basename "$file")"
+            if [ ! -e "$destination" ]; then
+                convert "$file" -resize 10% "$destination"
+            fi
+        fi
+    done
+}
+get_bg(){
+    json="[["
+    count=0
+    in_line=3
+
+    for file in $cache_folder/*; do
+        if [ -f "$file" ]; then
+                if [ $((count % $in_line)) -eq 0 ]; then
+                    json+="],["
+                else
+                    json+=","
+            fi
+            local line=$(jq -n \
+            --arg style "background-image: url('$cache_folder/$(basename "$file")')" \
+            --arg path "$SET_BG$(basename "$file")" \
+            '{style: $style, path: $path}')
+            json+=$line
+            count=$((count + 1))
+        fi
+    done
+
+    json+="]]"
+    echo $json | jq 'map(select(length > 0))'
+}
+set_bg(){
+    swww img $1
+    if [[ $2 == "pywal" ]]; then
+        pkill eww
+        wal -i $1 &
+        wait
+        cp "$HOME/.cache/wal/colors.scss" "$HOME/.config/eww/scss/colors.scss" &
+        wait
+        eww daemon & eww open main
+    fi
+}
+update(){
+    if [[ $1 == "delete" ]]; then
+        rm -rf $cache_folder
+    fi
+    create_thumbnails &
+    wait
+    eww update bg_list="$(get_bg)"
+}
+del_img(){
+    rm $1 $cache_folder/$(basename "$1")
+    notify-send Deleted $1
+    update
+}
+
+case $1 in
+    cache)
+        create_thumbnails
+        ;;
+    get)
+        get_bg
+        ;;
+    set)
+        set_bg $2 $3
+        ;;
+    update)
+        update $2
+        ;;
+    delete)
+        del_img $2
+        ;;
+esac

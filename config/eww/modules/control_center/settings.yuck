@@ -1,0 +1,142 @@
+(defwidget settings []
+  (box
+    :orientation "v"
+    :space-evenly false
+    :class "settings"
+    :spacing 20
+    (titleSettings)
+    (box
+      :orientation "vertical"
+      :space-evenly false
+      :spacing 15
+      :vexpand true
+      (hyprSettings)
+    )
+  )
+)
+(defwidget titleSettings[]
+  (box
+    :space-evenly false
+    :height 40
+    (eventbox
+      :onclick "${EWW_CMD} update transitionCC='slideright' & ${EWW_CMD} update numCC=1"
+      :class "btnLeft"
+      :cursor "pointer"
+      :width 40
+      (label :class "iconArrow" :text "")
+    )
+    (box
+      :hexpand true
+      :space-evenly false
+      (label
+        :class "settingsLbl"
+        :hexpand true
+        :halign "center"
+        :text {strings.appearance}
+      )
+    )
+    (eventbox
+      :onclick "${EWW_CMD} update transitionCC='slideleft' & ${EWW_CMD} update numCC=0"
+      :class "btnRight"
+      :cursor "pointer"
+      :width 40
+      (label :class "iconArrow" :text "")
+    )
+  )
+)
+(defwidget hyprSettings[]
+  (box
+    :space-evenly false
+    :orientation "vertical"
+    :spacing 5
+    (sliderSettings
+      :level {hypr_json.gaps_in}
+      :action "./scripts/hypr_write gaps_in {}"
+      :name "gaps_in"
+      :max_level 11
+    )
+    (sliderSettings
+      :level {hypr_json.gaps_out}
+      :action "./scripts/hypr_write gaps_out {}"
+      :name "gaps_out"
+      :max_level 21
+    )
+    (sliderSettings
+      :level {hypr_json.border_size}
+      :action "./scripts/hypr_write border_size {}"
+      :max_level 11
+      :name "border"
+    )
+    (sliderSettings
+      :level {hypr_json.rounding}
+      :action "./scripts/hypr_write rounding {}"
+      :max_level 21
+      :name "rounding"
+    )
+    (checkSettings
+      :name "Shadow"
+      :action "./scripts/hypr_write drop_shadow ${hypr_json.drop_shadow == 'yes' ? 'no' : 'yes'}"
+      :icon "${hypr_json.drop_shadow == 'yes' ? ' ' : ' '}"
+    )
+    (sliderSettings
+      :level {hypr_json.shadow_range}
+      :action "./scripts/hypr_write shadow_range {}"
+      :max_level 21
+      :name "shadow"
+    )
+    (checkSettings
+      :name "Blur"
+      :action "./scripts/hypr_write blur_enabled ${hypr_json.blur_enabled == 'true' ? 'false' : 'true'}"
+      :icon "${hypr_json.blur_enabled == 'true' ? ' ' : ' '}"
+    )
+    (sliderSettings
+      :level {hypr_json.blur_size}
+      :action "./scripts/hypr_write blur_size {}"
+      :max_level 21
+      :name "blur"
+    )
+  )
+)
+(defwidget sliderSettings [level ?max_level action name]
+  (box
+    :class "quickSlider full"
+    :space-evenly false
+    :spacing 10
+    :hexpand true
+    (label
+      :class  "sliderTxt"
+      :text name
+      :halign "end"
+    )
+    (scale
+      :flipped false
+      :active true
+      :hexpand true
+      ; :width 220
+      :class "sliderScale"
+      :value level
+      :draw-value false
+      :min 0
+      :max max_level
+      :onchange action
+    )
+    (label
+      :class  "sliderTxt"
+      :text level
+      :halign "end"
+      :xalign 1
+    )
+  )
+)
+(defwidget checkSettings[name action icon]
+  (eventbox
+    :class "checkbox"
+    :cursor "pointer"
+    :onclick action
+    (box
+      :space-evenly false
+      (label :text name :class "checkTxt" :hexpand true)
+      (label :text icon :class "checkTxt")
+    )
+  )
+)

@@ -1,0 +1,31 @@
+.monitor {
+  .text {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .icon {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .lblBtn {
+    &:hover {
+      .icon{
+        color: $color4;
+      }
+    }
+  }
+
+  .btn {
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: $color4;
+    }
+
+    &.active {
+      background-color: $color1;
+    }
+  }
+}

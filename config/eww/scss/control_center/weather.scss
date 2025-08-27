@@ -1,0 +1,33 @@
+.weather {
+  .largeText {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .mediumText {
+    font-size: 18px;
+  }
+  .smallText {
+    font-size: 16px;
+
+    &.overlayText {
+      background-color: $background3;
+      padding: 3px;
+    }
+    &.up{
+      border-radius: 5px 5px 0 0;
+    }
+    &.down{
+      border-radius: 0 0 5px 5px;
+    }
+  }
+  .largeIcon {
+    font-size: 60px;
+  }
+  .mediumIcon {
+    font-size: 42px;
+  }
+  .day:hover{
+    border-radius: 10px;
+    background-color: $color4;
+  }
+}

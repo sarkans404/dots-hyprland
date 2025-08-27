@@ -1,0 +1,59 @@
+//  ---------------------------------------------------------------------------
+//                                Player Widget
+//  ---------------------------------------------------------------------------
+.player {
+  .Right {
+    border-radius: 0 10px 10px 0;
+    background-color: $background3;
+    padding: 10px 0;
+    .button {
+      border-radius: 10px;
+      .iconBtn {
+        font-size: 20px;
+      }
+      &:hover {
+        .iconBtn {
+          color: $color4;
+        }
+      }
+    }
+  }
+  .Left {
+    border: 2px solid $background3;
+    border-radius: 10px 0 0 10px;;
+    .cover {
+      margin: 10px;
+      background-size: contain;
+      border-radius: 10px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .info {
+      padding: 0 10px;
+      .artist {
+        color:rgb(226, 224, 224);
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .track {
+
+        color:rgb(226, 224, 224);
+        font-size: 16px;
+      }
+    }
+    .sliderScale {
+      border-top: 1px solid $background;
+      trough {
+        background-color: $foreground2;
+        min-height: 12px;
+        border-radius: 0 0 0 8px;
+  
+        highlight {
+          background-color: $foreground;
+          border-radius: 0 0 0 8px;
+        }
+      }
+    }
+  }
+}

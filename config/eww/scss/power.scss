@@ -1,0 +1,24 @@
+.confirm {
+  .button {
+    background-color: $background2;
+    border-radius: 5px;
+    font-size: 20px;
+    border: $border;
+    border-color: transparent;
+
+    &:hover {
+      background-color: $color4;
+      border: $border;
+      border-color: $color4;
+    }
+  }
+  .container {
+    margin: 10px;
+  }
+  .titleBigText{
+    font-size: 22px;
+  }
+  .titleMediumText{
+    font-size: 20px;
+  }
+}

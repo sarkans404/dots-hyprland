@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# @requires: payerctl cmus
+
+default_style="background-image: url('images/ui/default.jpg');"
+player_tags=$(cmus-remote -Q)
+player_status=$(playerctl -p cmus status 2>/dev/null) 
+temp_folder="/tmp/eww/covers"
+
+if [ ! -d "$temp_folder" ]; then
+  mkdir -p "$temp_folder"
+fi
+
+get_tag(){
+    tag=$(echo "$player_tags" | grep -w "tag $1" | cut -d ' ' -f 3-)
+    echo $tag
+}
+get_value(){
+  value=$(echo "$player_tags" | grep -w "$1" | awk '{ print $2}')
+  echo $value
+}
+get_style(){
+  mp3_file=`echo "$player_tags" | grep "file" | awk -F 'file ' '{print $2}'`
+  if [[ ! -f "$temp_folder/$1.jpg" ]]; then
+    ffmpeg -i "$mp3_file" -an -vcodec copy "$temp_folder/$1.jpg" 2>/dev/null
+  fi
+  if [[ $(get_value position) == "3" ]]; then
+      notify-send -i "$temp_folder/$1.jpg" -t 3000 "$(get_tag artist)" "$(get_tag title)"
+  fi
+  style=$([ -e "$temp_folder/$1.jpg" ] && echo "background-image: url('$temp_folder/$1.jpg');" || echo $default_style)
+  echo $style
+}
+track_info(){
+  if [[ $(echo $player_status) != "" ]]; then
+    local title=$(get_tag title)
+    local artist=$(get_tag artist)
+    local duration=$(get_value duration)
+    local position=$(get_value position)
+    local style=$(get_style $title)
+    local json=$(jq -n \
+        --arg title "$title" \
+        --arg artist "$artist" \
+        --arg album "$album" \
+        --arg abs_duration "$abs_duration" \
+        --arg duration "$duration" \
+        --arg abs_position "$abs_position" \
+        --arg position "$position" \
+        --arg style "$style" \
+        '{title: $title, artist: $artist, duration: $duration, position: $position, style: $style}')
+
+    echo "$json" | jq -r .
+  else
+    echo "{\"title\":\"\",\"artist\":\"\",\"duration\":\"\",\"position\":\"\",\"style\":\"\"}"
+  fi
+}
+track_info
